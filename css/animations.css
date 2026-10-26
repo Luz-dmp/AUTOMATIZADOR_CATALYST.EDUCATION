@@ -1,0 +1,58 @@
+@keyframes catalyst-view-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view-enter { animation: catalyst-view-in .24s cubic-bezier(.2, .7, .25, 1) both; }
+
+.view-enter .home-hero .home-intro,
+.view-enter .home-hero .home-mascot-stage,
+.view-enter .home-actions-heading,
+.view-enter .dashboard-header,
+.view-enter .profile-overview,
+.view-enter .admin-users,
+.view-enter .library-section {
+  animation: catalyst-section-in .38s cubic-bezier(.2, .7, .25, 1) both;
+}
+
+.view-enter .home-actions-heading { animation-delay: .08s; }
+.view-enter .home-grid .hbtn,
+.view-enter .area-grid .acard,
+.view-enter .dashboard-grid > * {
+  animation: catalyst-card-in .42s cubic-bezier(.2, .7, .25, 1) both;
+}
+
+.view-enter .home-grid .hbtn:nth-child(2),
+.view-enter .area-grid .acard:nth-child(2),
+.view-enter .dashboard-grid > *:nth-child(2) { animation-delay: .06s; }
+
+.view-enter .home-grid .hbtn:nth-child(3),
+.view-enter .area-grid .acard:nth-child(3),
+.view-enter .dashboard-grid > *:nth-child(3) { animation-delay: .12s; }
+
+.view-enter .area-grid .acard:nth-child(4) { animation-delay: .18s; }
+.view-enter .area-grid .acard:nth-child(5) { animation-delay: .24s; }
+
+@keyframes catalyst-section-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes catalyst-card-in {
+  from { opacity: 0; transform: translateY(13px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-enter { animation: none; }
+  .hbtn:hover,
+  .nav-item:hover,
+  .profile-card:hover,
+  .acard:hover { transform: none; }
+}

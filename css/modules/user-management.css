@@ -1,0 +1,9 @@
+body:not([data-view="users"]) #adminUsers {
+  display: none;
+}
+
+body[data-view="users"] #userDashboard > .dashboard-grid,
+body[data-view="users"] #profileOverview,
+body[data-view="users"] #userLibrary {
+  display: none;
+}

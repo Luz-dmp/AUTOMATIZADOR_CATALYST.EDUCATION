@@ -1,0 +1,262 @@
+#nanamiCompanion {
+  position: fixed;
+  z-index: 55;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(22px, env(safe-area-inset-bottom));
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+  pointer-events: none;
+}
+
+#nanamiCompanion[hidden],
+.nanami-bubble[hidden] { display: none; }
+
+.nanami-trigger,
+.nanami-bubble { pointer-events: auto; }
+
+.nanami-trigger {
+  position: relative;
+  display: grid;
+  width: 72px;
+  height: 72px;
+  place-items: center;
+  padding: 7px;
+  border: 1px solid rgba(129, 192, 229, .28);
+  border-radius: 24px;
+  background: linear-gradient(145deg, #102a43, #1a527b);
+  box-shadow: 0 12px 32px rgba(10, 38, 61, .25), inset 0 1px 0 rgba(255, 255, 255, .2);
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.nanami-trigger:hover,
+.nanami-trigger:focus-visible {
+  transform: translateY(-3px) rotate(-2deg);
+  border-color: rgba(255, 210, 31, .68);
+  box-shadow: 0 17px 38px rgba(10, 38, 61, .3), 0 0 0 4px rgba(255, 210, 31, .12);
+}
+
+.nanami-portrait {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 19px;
+  background: radial-gradient(circle, rgba(102, 180, 224, .25), rgba(16, 42, 67, .1) 70%);
+}
+
+.nanami-companion-art {
+  display: block;
+  width: 66px;
+  max-width: none;
+  overflow: visible;
+  filter: drop-shadow(0 5px 6px rgba(0, 0, 0, .2));
+  animation: nanami-companion-float 4.2s ease-in-out infinite;
+}
+
+.nanami-trigger-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border: 2px solid #f7fafc;
+  border-radius: 50%;
+  color: #173650;
+  background: #ffd21f;
+  font-size: 10px;
+  box-shadow: 0 2px 8px rgba(16, 42, 67, .18);
+}
+
+.nanami-bubble {
+  position: relative;
+  width: min(300px, calc(100vw - 36px));
+  padding: 17px 40px 16px 17px;
+  border: 1px solid rgba(43, 99, 139, .15);
+  border-radius: 18px 18px 5px 18px;
+  background: linear-gradient(145deg, #fff, #f0f7fb);
+  box-shadow: 0 18px 44px rgba(12, 37, 57, .16);
+  color: #274258;
+}
+
+.nanami-bubble::after {
+  position: absolute;
+  right: 25px;
+  bottom: -7px;
+  width: 12px;
+  height: 12px;
+  border-right: 1px solid rgba(43, 99, 139, .12);
+  border-bottom: 1px solid rgba(43, 99, 139, .12);
+  background: #f0f7fb;
+  content: "";
+  transform: rotate(45deg);
+}
+
+.nanami-bubble-label {
+  color: #54809b;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .11em;
+}
+
+.nanami-bubble p {
+  margin: 7px 0 0;
+  color: #1e3a51;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.nanami-bubble-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #e4edf2;
+  border-radius: 9px;
+  color: #71899a;
+  background: #fff;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.nanami-bubble-close:hover { color: #173650; background: #f2f7fa; }
+.nanami-bubble-enter { animation: nanami-bubble-in .2s ease-out both; }
+.nanami-companion.is-reacting .nanami-portrait { animation: nanami-reaction .5s ease-out; }
+
+.nanami-empty-hint,
+.nanami-generated-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #55748a;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.nanami-empty-hint {
+  max-width: 380px;
+  margin: 20px auto 0;
+  padding: 10px 14px;
+  border: 1px solid #e0ebf1;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .75);
+}
+
+.nanami-empty-art {
+  display: block;
+  width: 56px;
+  flex: 0 0 56px;
+  overflow: visible;
+  filter: drop-shadow(0 5px 7px rgba(18, 64, 96, .12));
+}
+
+.nanami-generated-empty {
+  width: 100%;
+  min-height: 78px;
+  padding: 12px;
+  border: 1px dashed #d6e4ec;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #f7fafc, #fff);
+  text-align: left;
+}
+
+.has-nanami-empty { display: grid !important; align-items: center; }
+.user-empty.has-nanami-empty:not([hidden]) { display: flex !important; }
+.user-empty[hidden] { display: none !important; }
+.has-nanami-empty .nanami-generated-empty { justify-content: flex-start; }
+
+#busy.on {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  color: #235d80;
+  font-size: 14px;
+}
+
+.nanami-busy-portrait {
+  position: relative;
+  display: grid;
+  width: 78px;
+  height: 78px;
+  place-items: center;
+}
+
+.nanami-busy-art {
+  z-index: 1;
+  display: block;
+  width: 68px;
+  filter: drop-shadow(0 7px 10px rgba(25, 75, 106, .18));
+  animation: nanami-loading-bob 1.25s ease-in-out infinite;
+}
+
+.nanami-loading-orbit {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(41, 127, 178, .17);
+  border-top-color: #e2b800;
+  border-radius: 50%;
+  animation: nanami-orbit 1.7s linear infinite;
+}
+
+.nanami-loading-art {
+  width: 30px;
+  flex: 0 0 30px;
+  filter: drop-shadow(0 3px 5px rgba(25, 75, 106, .12));
+  animation: nanami-loading-bob 1.25s ease-in-out infinite;
+}
+
+.directory-state.loading .nanami-loading-art { margin-right: -6px; }
+
+@keyframes nanami-companion-float {
+  0%, 100% { transform: translateY(1px); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes nanami-reaction {
+  0%, 100% { transform: scale(1) rotate(0); }
+  35% { transform: scale(1.08) rotate(-5deg); }
+  70% { transform: scale(1.03) rotate(3deg); }
+}
+
+@keyframes nanami-bubble-in {
+  from { opacity: 0; transform: translateY(7px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes nanami-loading-bob {
+  0%, 100% { transform: translateY(2px) rotate(-1deg); }
+  50% { transform: translateY(-4px) rotate(1deg); }
+}
+
+@keyframes nanami-orbit {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 680px) {
+  #nanamiCompanion { right: 12px; bottom: max(14px, env(safe-area-inset-bottom)); }
+  .nanami-trigger { width: 62px; height: 62px; border-radius: 21px; }
+  .nanami-companion-art { width: 58px; }
+  .nanami-bubble { width: min(280px, calc(100vw - 28px)); }
+  .nanami-empty-hint { align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nanami-companion-art,
+  .nanami-busy-art,
+  .nanami-loading-orbit { animation: none; }
+  .nanami-bubble-enter,
+  .nanami-companion.is-reacting .nanami-portrait { animation: none; }
+  .nanami-trigger { transition: none; }
+  .nanami-trigger:hover,
+  .nanami-trigger:focus-visible { transform: none; }
+}
